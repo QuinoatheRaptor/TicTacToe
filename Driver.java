@@ -4,9 +4,9 @@ public class Driver{
     public static void main(String[] args){
         KeyboardReader r = new KeyboardReader();
         Player p1 = new Player();
-        int oppSelection = r.readInt("1 - Easy Bot\n2 - Hard Bot\n3 - Play against another player");
+        int oppSelection = r.readInt("1 - Easy Bot\n2 - Medium Bot\n3 - Impossible Bot\n4 - Play against another player");
         Player p2 = new Player();
-        if(oppSelection == 3){
+        if(oppSelection == 4){
             p2 = new Player();
         }
         else{

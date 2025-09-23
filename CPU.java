@@ -11,16 +11,41 @@ public class CPU extends Player{
             t.markSpot(randomMove(t), mark);
         }
         if(intelligence == 2){//Medium Difficulty Bot
-            if(findWinningMove(t, mark).isValid(t)){
+            if(findWinningMove(t, mark).isValid(t)){//First the bot checks if it can win
                 t.markSpot(findWinningMove(t, mark), mark);
             }
-            else if(findWinningMove(t, "X").isValid(t)){
+            else if(findWinningMove(t, "X").isValid(t)){//Next it checks if it needs to block the user from winning
                 t.markSpot(findWinningMove(t, "X"), mark);
             }
-            else if(findSecondMove(t, mark).isValid(t)){
+            else if(findSecondMove(t, mark).isValid(t)){//Then it looks for two consecutive open spaces to begin setting up a win
                 t.markSpot(findSecondMove(t, mark), mark);
             }
-            else{
+            else{//if all else fails go random
+                t.markSpot(randomMove(t), mark);
+            }
+        }
+        if(intelligence == 3){//Impossible Difficulty Bot
+            if(findWinningMove(t, mark).isValid(t)){//First the bot checks if it can win
+                t.markSpot(findWinningMove(t, mark), mark);
+            }
+            else if(findWinningMove(t, "X").isValid(t)){//Next it checks if it needs to block the user from winning
+                t.markSpot(findWinningMove(t, "X"), mark);
+            }
+            else if(findSecondMove(t, mark).isValid(t)){//Then it looks for two consecutive open spaces to begin setting up a win
+                t.markSpot(findSecondMove(t, mark), mark);
+            }
+            else if(new Spot(1,1).isValid(t)){//The impossible bot goes for the middle to prevent the user from setting up multiple win scenarios
+                t.markSpot(new Spot(1,1), mark);
+            }
+            else if(new Spot(0,0).isValid(t) || new Spot(0,2).isValid(t) || new Spot(2,0).isValid(t) || new Spot(2, 2).isValid(t)){//Then it tries to secure corners to set up its own wins
+                Spot[] corners = new Spot[]{new Spot(0,0), new Spot(0, 2), new Spot(2,0), new Spot(2,2)};
+                Spot corner = corners[(int)(Math.random() * 4)];
+                while(!corner.isValid(t)){
+                    corner = corners[(int)(Math.random() * 4)];
+                }
+                t.markSpot(corner, mark);
+            }
+            else{//if all else fails go random
                 t.markSpot(randomMove(t), mark);
             }
 
